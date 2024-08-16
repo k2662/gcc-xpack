@@ -75,7 +75,7 @@ jobs:
         run: |
           uname -a
           sw_vers
-          ls -lA /Library/Developer/CommandLineTools/SDKs || true
+          ls -lA /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs || true
           ls -lA /Applications
           xcode-select --print-path
           xcodebuild -version || true
@@ -111,6 +111,7 @@ jobs:
       - name: 'Build darwin-x64 binaries'
         timeout-minutes: 1440
         run: |
+          xcode-select --switch /Applications/Xcode.app/Contents/Developer
           xpm install --config darwin-x64 --loglevel ${{ github.event.inputs.xpm_install_loglevel }} ${{ github.event.inputs.xpm_install_options }} -C build-assets
           xpm run build --config darwin-x64 -C build-assets
 
